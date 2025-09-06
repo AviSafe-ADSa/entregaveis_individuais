@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+</head>
+
+<body>
+    <h2>Calculadora Financeira</h2><br><br>
+    <span>Informe o nome da granja:</span><br>
+    <input id="input_nomeGranja" type="text"><br><br>
+    <span>Informe a quantidade de galinhas:</span><br>
+    <input id="input_qtdGalinhas" type="number"><br><br>
+    <span>Informe o preço de cada galinha:</span><br>
+    <input id="input_precoGalinha" type="number"><br><br>
+    <span>Informe o preço do kilo da galinha:</span><br>
+    <input id="input_precoGalinhaKG" type="number"><br><br>
+    <span>Informe dias de mercado exterior fechado:</span><br>
+    <button onclick="Calcular()">Calcular</button><br><br>
+    <div id="div_mensagem"></div>
+
+</body>
+
+</html>
+<script>
+    var qtdGalinha = 0;
+    var nomeGranja = '';
+    var precoGalinha = 0;
+    var precoGalinhaKG = 0;
+
+    function Calcular() {
+        nomeGranja = input_nomeGranja.value
+        qtdGalinha = Number(input_qtdGalinhas.value);
+        precoGalinha = Number(input_precoGalinha.value);
+        precoGalinhaKG = Number(input_precoGalinhaKG.value);
+
+        var totalGalinha = precoGalinha * qtdGalinha;
+        var totalGalinhaKg = precoGalinhaKG * qtdGalinha;
+
+        div_mensagem.innerHTML = `O aviário <b>${nomeGranja}</b>`
+    }
+</script>
