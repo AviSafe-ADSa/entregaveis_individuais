@@ -19,16 +19,26 @@ INSERT INTO Sensor (leituraUmi, leituraTemp)VALUES
 
 SELECT * FROM Sensor; 
 
+
 SELECT leituraUmi,
 	CASE
 	WHEN leituraUmi <= 50 THEN 'Umidade está baixa'
-    WHEN leituraUmi > 50 THEN 'Umidade está alta'
+    WHEN leituraUmi > 80 THEN 'Umidade está alta'
+    ELSE 'Umidade está na média'
     END AS 'Umidade do ar'
     FROM Sensor;
     
-SELECT CONCAT(leituraUmi, ' ' ,dtLeitura) AS 'LEITURA DE UMIDADE E A DATA DE LEITURA' FROM Sensor;
+SELECT CONCAT(leituraUmi, '   ' ,dtLeitura) AS 'LEITURA DE UMIDADE E A DATA DE LEITURA' FROM Sensor;
   
 SELECT CONCAT('A umidade está em ', leituraUmi , ' e a temperatura está ' , leituraTemp) AS 'LEITURA DE UMIDADE E TEMPERATURA' FROM Sensor;  
+
+SELECT leituraTemp,
+	CASE
+    WHEN leituraTemp < 20 THEN CONCAT('Perigo o ambiente está com a temperatura baixa: ', leituraTemp , 'º')
+    WHEN leituraTemp > 30 THEN CONCAT('Perigo o ambiente esta quente demais: ', leituraTemp , 'º')
+    ELSE CONCAT('Temperatura ideal: ' , leituraTemp , 'º')
+    END AS 'Alerta de Perigo'
+    FROM Sensor;
 
 
 CREATE TABLE Usuario(
@@ -48,13 +58,26 @@ INSERT INTO Usuario (nomefantasia, email, telefone, CNPJ) VALUES
 ('Granja Plinio','plinio_granjas@gmail.com', '11985011987', '00011234104451'),
 ('Granja Patinho','patinho_granja@gmail.com', '11985615121', '10031238194951');
 
+
 SELECT * FROM Usuario;
 
-UPDATE Usuario SET nome =
+-- Atualiando o nome Fantasia do usuario com id 1
+UPDATE Usuario SET nomeFantasia = 
 	CASE 
-    WHEN nome LIKE 'Aviario%' THEN 'Granja'
-    END 
-
+		WHEN idUsuario = 1 THEN 'Granja Freitas' 
+    END
+    WHERE idUsuario = 1;
+    
+-- Bloqueando o acesso do usuario com id 6
+UPDATE Usuario SET statusUsuario = 
+	CASE
+		WHEN statusUsuario = 1 THEN 0
+        END
+        WHERE idUsuario = 6;
+        
+-- Consultando quais usuarios estao bloquaados no sistema
+SELECT concat('O usuario: ', nomefantasia ,' Está bloquado no sistema') AS 'Usuarios Bloqueados' FROM Usuario WHERE statusUsuario = 0;
+    
 
 CREATE TABLE Galpao(
 idGalpao 		INT PRIMARY KEY AUTO_INCREMENT,
@@ -74,6 +97,33 @@ INSERT INTO Galpao(nome, tamanho, nomeResponsavel, qtdSensores) VALUES
 
 SELECT * FROM Galpao;
 
+ALTER TABLE Galpao RENAME COLUMN nome TO nomeGalpao;
+
+CREATE TABLE Alerta(
+idAlerta INT PRIMARY KEY AUTO_INCREMENT,
+dtAlerta DATETIME DEFAULT CURRENT_TIMESTAMP,
+motivoAlerta VARCHAR(20) NOT NULL 
+CONSTRAINT chkMotivo CHECK (motivoAlerta IN('Temperatura baixa' , 'Temperatura alta', 'Umidade baixa' , 'Umidade alta', 'Outros')),
+statusResolvido TINYINT DEFAULT 0, -- alerta criado com o status resolvido 0 'false'  
+idGalpao INT, -- EM um futuro proximo isso vai virar uma chave estrangeira
+idUsuario INT -- EM um futuro proximo isso vai virar uma chave estrangeira
+);
+
+INSERT INTO Alerta (motivoAlerta , idGalpao , idUsuario) VALUES
+('Temperatura baixa', 1 , 1),
+('Temperatura alta', 3 , 1),
+('Umidade alta', 2 , 1),
+('Umidade baixa', 3 , 1);
+
+SELECT * FROM Alerta;
+
+UPDATE Alerta SET statusResolvido = 1 WHERE idAlerta = 1; 
+
+SELECT * FROM Alerta WHERE statusResolvido = 1;
+
+ALTER TABLE Alerta MODIFY COLUMN motivoAlerta VARCHAR(17);
+DESCRIBE Alerta; 
+
 CREATE TABLE Plano(
 idPlano			INT PRIMARY KEY AUTO_INCREMENT,
 nome			VARCHAR(100),
@@ -92,10 +142,14 @@ INSERT INTO Plano(nome, tipoPlano, idUsuario) VALUES
 
 SELECT * FROM Plano;
 
+SELECT CONCAT('O Usuario com id: ' , idUsuario , '  Tem o plano ' , tipoPlano) AS 'Usuario e seu plano' FROM Plano ORDER BY idUsuario;
+
+ALTER TABLE Plano DROP COLUMN nome;
+
 CREATE TABLE Pagamento(
 idPagamento		INT PRIMARY KEY AUTO_INCREMENT,
 dtPagamento		DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-statusPagamento	TINYINT, -- caso 1 pagametno feito com sucessos caso 0 pagamento errado, então 
+statusPagamento	TINYINT, -- caso 1 pagametno feito com sucessos caso 0 pagamento errado
 observacoes		TEXT,
 idUsuario		INT -- EM um futuro proximo isso vai virar uma chave estrangeira
 );
@@ -107,3 +161,7 @@ INSERT INTO Pagamento(idUsuario)VALUES
 (4);
 
 SELECT * FROM Pagamento;
+
+ALTER TABLE Pagamento DROP COLUMN statusPagamento;
+
+SELECT * FROM Pagamento ORDER BY idUsuario DESC; 
