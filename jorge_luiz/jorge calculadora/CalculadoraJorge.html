@@ -1,44 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-
-    <div id="div_calculadora" class="div_calculadora">
-
-        <img src="Frame_8.png" alt="" id="img_logo">
-
-        <div class="div_texto">
-            <label for="">Insira a ....</label>
-            <br>
-            <input type="text" id="quantidade">
+    <div class="conteudo">
+        <div class="cabecalho">
+            <img src="Frame_8.png" alt="" id="img_logo" />
         </div>
 
-        <div class="div_texto">
-            <label for="">Insira a .....</label>
-            <br>
-            <input type="text" id="quantidade">
-        </div>
+        <div class="calculo">
+            <div id="div_calculadora" class="div_calculadora">
 
-        <div class="div_texto">
-            <label for="">Insira a .....</label>
-            <br>
-            <input type="text" id="quantidade">
-        </div>
+                <div class="div_texto">
+                    <label for="input_qtdmatrizes">Insira a quantidade de galinhas matrizeiras.</label>
+                    <br />
+                    <input type="text" id="input_qtdmatrizes" placeholder="ex : 10000" />
+                </div>
 
-        <div class="div_texto">
-            <label for="">Insira a .....    </label>
-            <br>
-            <input type="text" id="quantidade">
-        </div>
+                <div class="div_texto">
+                    <label for="input_valormatrizes">Insira o valor investido em cada galinhas matrizeira (até o inicio
+                        da
+                        postura).</label>
+                    <br />
+                    <input type="text" id="input_valormatrizes" placeholder="ex : 40.00 a 70.00 (preço médio)" />
+                </div>
 
-        <div class="div_texto">
-            <button>Calcular!</button>
+                <div class="div_texto">
+                    <label for="input_qtdcortevivas">Insira a quantidade de galinhas destinadas a corte (vivas).</label>
+                    <br />
+                    <input type="text" id="input_qtdcortevivas" placeholder="ex : 100000" />
+                </div>
+
+                <div class="div_texto">
+                    <label for="valorcortevivas">Insira o valor da venda da unidade da galinha destinada a corte
+                        (vivas).</label>
+                    <br />
+                    <input type="text" id="input_valorcortecongeladas" placeholder="Ex : 5.70 (preço médio)" />
+                </div>
+
+                <div class="div_texto">
+                    <label for="input_qtdcortecongeladas">Insira a quantidade de galinhas destinadas a corte
+                        (congeladas).</label>
+                    <br />
+                    <input type="text" id="input_qtdcortecongeladas" placeholder="ex : 100000" />
+                </div>
+                <div class="div_texto">
+                    <label for="valorcortecongeladas">Insira o valor da venda da unidade da galinha destinada a corte
+                        (congeladas).</label>
+                    <br />
+                    <input type="text" id="input_valorcortevivas" placeholder="ex : 7.20 (preço médio)" />
+                </div>
+                <br><br>
+                <div class="button">
+                    <button onclick="calcular()">Calcular!</button>
+                </div>
+            </div>
+            <div class="div_mensagem">
+                <div id="div_mensagem"></div>
+            </div>
         </div>
     </div>
+    </div>
 </body>
+
 </html>
+
+<script>
+    function calcular() {
+        var qtdmatrizes = Number(input_qtdmatrizes.value);
+        var valormatrizes = Number(input_valormatrizes.value);
+        var qtdcortecongeladas = Number(input_qtdcortecongeladas.value);
+        var qtdcortevivas = Number(input_qtdcortevivas.value);
+        var valorcortecongeladas = Number(input_valorcortevivas.value);
+        var valorcortevivas = Number(input_valorcortecongeladas.value);
+
+        var receitacortevivas = qtdcortevivas * valorcortevivas;
+        var receitacortecongeladas = qtdcortecongeladas * valorcortecongeladas;
+        var customatrizes = qtdmatrizes * valormatrizes;
+        var receitaestimadabruta = receitacortecongeladas + receitacortevivas;
+        var receitafinal = receitaestimadabruta - customatrizes;
+
+        var receitaestimadafinal = receitafinal * 0.98; //retirando 2% da perda estimada
+
+        var totalaves = qtdcortecongeladas + qtdcortevivas + qtdmatrizes;
+        var avescontaminadas = totalaves * 0.8;
+
+        var mensagemantessistema = `Receita estimada galinhas destinadas a corte:<br>
+
+        Vivas: R$${receitacortevivas}<br>
+        Congeladas: R$${receitacortecongeladas}<br>
+        Custo das galinhas matrizeiras (até o inicio da postura):R$${customatrizes}<br>
+        Receita estimada bruta (Apenas a venda das galinhas de corte): R$${receitaestimadabruta}<br>
+        Receita estimada final (Subtraindo o custo das galinhas matrizeiras): R$${receitafinal}
+        <br>
+        ------------------------------------------------------
+        <br>
+        Sem o controle da temperatura e úmidade dentro das granjas, é estimado uma redução de 2% na receita.<br>
+        Receita estimada (Subtraindo 2% da perda estimada): R$${receitaestimadafinal}<br>
+        Valor perdido da receita final: R$${receitafinal * 0.02} <br>
+
+        -------------------------------------------------------------- <br>
+        Caso haja a ploriferação e contamição do galpão é estimado que 80% de todas as aves sejam contamidas em 72 horas. <br>
+        Total de aves: ${totalaves} <br>
+        Aves contaminadas: ${avescontaminadas} <br>
+        Galinhas destinada a corte contaminadas (vivas): ${qtdcortevivas * 0.8
+            }<br>
+        Galinhas destinadas a corte contaminadas (congeladas): ${qtdcortecongeladas * 0.8
+            }<br>
+        Galinhas matrizes contaminadas: ${qtdmatrizes * 0.8}<br>
+        ----------------------------------------------------<br>
+        Assumindo que 80% das aves foram infectadas, todas vão ter que ser abatidas.<br>
+        Valor da receita perdido: R$${receitaestimadafinal * 0.8} <br>
+        Custo de 80% do investimento em galinhas matrizes perdidas: R$${customatrizes * 0.8
+            } <br>
+        Valor da receita final: R$${(receitaestimadafinal - customatrizes * 0.8) * 0.2
+            } <br>
+
+
+        `;
+
+        div_mensagem.innerHTML = mensagemantessistema;
+    }
+</script>
