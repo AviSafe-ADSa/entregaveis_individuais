@@ -5,40 +5,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Financeira</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h2>Calculadora Financeira</h2><br><br>
-    <span>Informe o nome da granja:</span><br>
-    <input id="input_nomeGranja" type="text"><br><br>
-    <span>Informe a quantidade de galinhas:</span><br>
-    <input id="input_qtdGalinhas" type="number"><br><br>
-    <span>Informe o preço de cada galinha:</span><br>
-    <input id="input_precoGalinha" type="number"><br><br>
-    <span>Informe o preço do kilo da galinha:</span><br>
-    <input id="input_precoGalinhaKG" type="number"><br><br>
-    <span>Informe dias de mercado exterior fechado:</span><br>
-    <button onclick="Calcular()">Calcular</button><br><br>
+    <div class="input">
+        <span>Informe o nome da granja:</span><br>
+        <input id="input_nomeGranja" type="text"><br><br>
+        <span>Informe a quantidade de galinhas:</span><br>
+        <input id="input_qtdGalinhas" type="number"><br><br>
+        <span>Informe a quantidade de galinhas mortas:</span><br>
+        <input id="input_qtdGalinhasMorta" type="number"><br><br>
+
+
+    </div>
+    <div class="input2">
+        <div class="input3">
+            <span>Informe o preço do kilo da galinha:</span>
+            <input id="input_precoGalinhaKG" type="number"><br><br>
+        </div>
+        <div class="input3">
+            <span>Informe o preço de cada galinha:</span>
+            <input id="input_precoGalinha" type="number"><br><br>
+        </div>
+    </div>
+    <div class="botao">
+        <button onclick="CalcularPeso()">Calcular Galinhas por Peso</button><br><br>
+        <button onclick="CalcularQtd()">Calcular Galinhas por quantidade</button><br><br>
+    </div><br>
     <div id="div_mensagem"></div>
 
 </body>
 
 </html>
 <script>
+
     var qtdGalinha = 0;
     var nomeGranja = '';
     var precoGalinha = 0;
     var precoGalinhaKG = 0;
+    var qtdGalinhasMortas = 0;
+    var totalDesinfeccao = 0;
 
-    function Calcular() {
+    function CalcularPeso() {
         nomeGranja = input_nomeGranja.value
         qtdGalinha = Number(input_qtdGalinhas.value);
         precoGalinha = Number(input_precoGalinha.value);
         precoGalinhaKG = Number(input_precoGalinhaKG.value);
+        qtdGalinhasMortas = Number(input_qtdGalinhasMorta.value);
 
-        var totalGalinha = precoGalinha * qtdGalinha;
-        var totalGalinhaKg = precoGalinhaKG * qtdGalinha;
+        //Peso medio das galinhas de granja é 2.2 kg 
+        var totalGalinhaKg = (precoGalinhaKG * 2.2) * qtdGalinhasMortas;
+        totalDesinfeccao = qtdGalinha * 0.03;
+        var totalGalinhaKgNovo =  totalGalinhaKg + totalDesinfeccao;
 
-        div_mensagem.innerHTML = `O aviário <b>${nomeGranja}</b>`
+        div_mensagem.innerHTML = `O aviário <b>${nomeGranja}</b> Tem como prujuizo em relação a venda por peso de R$${totalGalinhaKg} 
+        e de ${totalDesinfeccao} por desinfecção do local dando no total um prejuizo de R$${totalGalinhaKgNovo}`
+    }
+
+    function CalcularQtd() {
+        nomeGranja = input_nomeGranja.value
+        qtdGalinha = Number(input_qtdGalinhas.value);
+        precoGalinha = Number(input_precoGalinha.value);
+        qtdGalinhasMortas = Number(input_qtdGalinhasMorta.value);
+
+        var totalGalinha = precoGalinha * qtdGalinhasMortas;
+        totalDesinfeccao = qtdGalinha * 0.03;
+        var totalGalinhaNovo =  totalGalinha + totalDesinfeccao;
+
+
+        div_mensagem.innerHTML = `O aviário <b>${nomeGranja}</b> Tem como prejuizo de R$${totalGalinha} galinhas abatidas por conta da influenza
+         e de ${totalDesinfeccao} por desinfecção do local dando no total um prejuizo de R$${totalGalinhaNovo}`
     }
 </script>
