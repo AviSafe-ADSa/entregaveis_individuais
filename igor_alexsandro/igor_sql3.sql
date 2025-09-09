@@ -18,6 +18,13 @@ INSERT INTO Usuarios (email, Permissao) VALUES
 ('Chickenjose0@gmail.com', 1),
 ('igor_felix@outlook.com', 2);
 
+select concat ('o ',email,' contem a permissão ', Permissao) as 'Permissões' from Usuarios;
+
+alter table Usuarios modify column email varchar(45) not null unique;
+
+select * from Usuarios;
+
+desc Usuarios;
 
 
 
@@ -36,44 +43,38 @@ INSERT INTO Empresas (nome, responsavel, CNPJ, contato, statusempresa) VALUES
 ('granja SPTECH', 'Vera Lucia Souza', '0000000-000', '1197642-9088', 'pendente'),
 ('granja do Frizza', 'Cláudio Frizzarini Santos', '0000000-000', '1192156-0163', 'desativado');
 
+
 select * from Empresas;
 
 select  concat ('o contato do ', responsavel, '  responsavel pela ' , nome, ' é ', contato) as 'contatos' from Empresas;
+
+alter table Empresas rename column nome to nomegranja;
 
 ALTER TABLE Empresas MODIFY COLUMN responsavel VARCHAR (45);
 
 DESC Empresas;
 
 
-CREATE TABLE Sensor (
-  idSensor INT PRIMARY KEY AUTO_INCREMENT,
-  valorTempe INT NOT NULL,
-  valorUmid INT NOT NULL,
-  CNPJ VARCHAR(40),
-  contato VARCHAR(20) NOT NULL
-);
-
-
-SELECT * FROM Usuarios;
-
 CREATE TABLE Sensor(
 idTemp INT PRIMARY KEY auto_increment,
-valorTemp DECIMAL (4,2), 
-ValorUmid int);
-
-CREATE TABLE Sensor (
-idSensor INT PRIMARY KEY AUTO_INCREMENT,
 dtLeitura DATETIME DEFAULT current_timestamp,
-leituraTemp DECIMAL (5,2),
-leituraUmi INT 
-);
+valorTemp DECIMAL (4,2) not null, 
+ValorUmid int not null);
 
-INSERT INTO Sensor (leituraTemp, leituraUmi) VALUES
-(99.22, 40),
-(59.20, 38),
-(62.52, 44),
-(93.25, 47),
+INSERT INTO Sensor (valorTemp, ValorUmid) VALUES
+(50.22, 40),
+(46.20, 38),
+(29.52, 44),
+(39.25, 47),
 (32.62, 48);
+
+select * from Sensor;
+
+alter table Sensor rename column ValorUmid to valorUmid;
+
+desc Sensor;
+
+select concat ('Em ',  dtLeitura, ' foi coletado a temperatura em ', valorTemp, ' e a umidade ', valorUmid) as 'data da coleta' from Sensor;
 
 
 CREATE TABLE Galpoes(
