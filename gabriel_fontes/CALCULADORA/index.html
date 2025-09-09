@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador Financeiro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <img src="./Frame 24.png" alt="" />
+      </div>
+      <div class="menu">
+        <p>Simulador financeiro</p>
+        <p>Home</p>
+        <p>Sobre nós</p>
+        <p>Contato</p>
+        <p>Nosso produto</p>
+      </div>
+      <button class="btn-login">Credenciados</button>
+    </div>
+
+    <div class="container">
+      <div class="form-area">
+        <h2>Faça simulações financeiras de sua granja</h2>
+        <br /><br />
+        <div class="form-grid">
+          <div class="input-box">
+            <label>Informe o numero de aves:</label>
+            <input type="number" placeholder="Ex: 10.000" id="inputNumAves" value="15000" />
+          </div>
+          <div class="input-box">
+            <label>Informe o custo médio por ave:</label>
+            <input type="number" placeholder="Ex: 5" id="inputCustoMedioPAve"  value="10" />
+          </div>
+          <div class="input-box">
+            <label>Informe a taxa de mortalidade média por ano (Em %):</label>
+            <input
+              type="number"
+              placeholder="Ex: 10"
+              id="inputTaxaMortalidade"
+              value="30"
+            />
+          </div>
+          <div class="input-box"> 
+            <label>Lucro estimado:</label>
+            <input type="number" placeholder="Ex: 1" id="inputLucroMedio"  value="6000" />
+          </div>
+        </div>
+         <div class="input-box"> 
+            <label>Investimento estimado:</label>
+            <input type="number" placeholder="Ex: 1" id="inputInvestimento"  value="12000" />
+          </div>
+        <button onclick="CalculateRoi()" class="btn">Calcular ROI</button>
+
+        <div class="form-grid">
+          <div class="input-box">
+            <label>Custo de ração por kg.</label>
+            <input type="number" placeholder="Ex: 16" id="inputCustoRacao" value="15" />
+          </div>
+          <div class="input-box">
+            <label>Consumo médio por ave (KG/dia).</label>
+            <input type="number" placeholder="Ex: 2" id="inputConsumoMedioRacao" value="1" />
+          </div>
+          <div class="input-box">
+            <label>Energia elétrica mensal.</label>
+            <input
+              type="number"
+              placeholder="Ex: 1900"
+              id="inputCustoEnergia"
+              value="1900"
+            />
+          </div>
+          <div class="input-box">
+            <label>Mão de obra mensal.</label>
+            <input
+              type="number"
+              placeholder="Ex: 14.000"
+              id="inputCustoServico"
+              value="20000"
+            />
+          </div>
+        </div>
+        <button class="btn" onclick="CalculateCoast()">Calcular Custos</button>
+      </div>
+
+      <div class="result-box">
+        <br />
+        <div class="result-item-red-container">
+          <div class="result-item-red"></div>
+        </div>
+
+        <h3>Simulador de Finanças</h3>
+        <br />
+        <br />
+        <h4>Resultados</h4>
+        <div class="result-item"></div>
+        <p id="responseEconomiaMensal">Possivel economia mensal com aves salvas: 0</p>
+        <div class="result-item1"></div>
+        <p id="responseROI">ROI em (%): 0</p>
+        <div class="result-item"></div>
+        <p id="responseValorTotal">
+          Quantidade total de aves que podem ser perdidas em um surto: 0
+        </p>
+        <div class="result-item1"></div>
+        <p id="responseCustosTotais">Custos totais: </p>
+        <div class="result-item1"></div>
+        <p id="responseCustosRacao">Custo com ração:</p>
+        <div class="result-item"></div>
+      </div>
+    </div>
+    <script>
+      var numAves = 0;
+      var custoMedioPAve = 0;
+      var taxaMortalidade = 0;
+      var lucro = 0;
+      var custoRacao = 0;
+      var custoEnergia = 0;
+      var custoServico = 0;
+      var EconomiaMensal = 0;
+      var ValorTotalSurto = 0;
+      var resultadoRacao = 0;
+      var consumoMedioRacao = 0
+      function CalculateRoi() {
+        numAves = Number(inputNumAves.value);
+        custoMedioPAve = Number(inputCustoMedioPAve.value);
+        taxaMortalidade = Number(inputTaxaMortalidade.value);
+        lucro = Number(inputLucroMedio.value);
+        custoRacao = Number(inputCustoRacao.value);
+        consumoMedio = Number(inputConsumoMedioRacao  .value);
+        custoEnergia = Number(inputCustoEnergia.value);
+        custoServico = Number(inputCustoServico.value);
+        investimento = Number(inputInvestimento.value)
+        resultadoRacao = (numAves * consumoMedio) * custoMedioPAve;
+        aveSalvas = numAves * (taxaMortalidade / 100);          
+        EconomiaMensal = aveSalvas * custoMedioPAve;
+        var resultROI = (lucro - investimento) /  investimento * 100;
+        responseValorTotal.innerHTML = `<p>Quantidade de aves total que podem ser perdidas em um surto: <b>${numAves * 0.2} animais </b> <p>`
+        responseEconomiaMensal.innerHTML   = `<p>Economia mensal com aves salvas: <b>R$${EconomiaMensal}</b><p>`;
+        responseROI.innerHTML = `<p>ROI: <b>${resultROI}%</b><p>`;
+
+      }
+      function CalculateCoast() {
+        numAves = Number(inputNumAves.value);
+        var custoMedioPAve = Number(inputCustoMedioPAve.value);
+        custoRacao = Number(inputCustoRacao.value);
+        consumoMedioRacao = Number(inputConsumoMedioRacao.value);
+        custoEnergia = Number(inputCustoEnergia.value);
+        custoServico = Number(inputCustoServico.value);
+        var KgsRacao = numAves * consumoMedioRacao
+        resultadoRacao = KgsRacao * custoRacao;
+        var custoTotal = custoRacao + custoServico + (numAves * custoMedioPAve) + custoEnergia
+        responseCustosTotais.innerHTML = `<p>Custos totais: R$  <b>${custoTotal}</b></p>`;
+        responseCustosRacao.innerHTML = `<p>Custos com ração: R$<b>${resultadoRacao}</b></p>`
+      }
+    </script>
+  </body>
+</html>
