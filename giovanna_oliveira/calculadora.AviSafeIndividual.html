@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giovanna de Oliveira</title>
+</head>
+<body>
+    Nome da sua granja:
+    <input type="text" id="ipt_nome"><br>
+    
+    Quantidade de galinhas na sua granja:
+    <input type="number" id="ipt_quantidade"><br>
+
+    Gasto médio por galinha:
+    <input type="number" id="ipt_custo"><br>
+
+    <button onclick="calcular()">Calcular</button>
+    <div id="div_mensagem"></div>
+</body>
+</html>
+
+<script>
+    function calcular() {
+        var nome = ipt_nome.value;
+        var qtd = Number(ipt_quantidade.value);
+        var custo = Number(ipt_custo.value);
+
+        var mortas = qtd * 0.80;
+
+        var prejuizo = mortas * custo;
+
+        var diminuir = prejuizo * 0.20;
+        var comSistema = prejuizo * 0.80;
+     
+
+        div_mensagem.innerHTML = `
+            A taxa de mortalidade da gripe aviária em galinhas pode ser extremamente alta, em alguns casos 80% ou mais das aves morrem<br><br>
+            Na granja <b>${nome}</b>, aproximadamente ${mortas} galinhas podem morrer com surto da gripe aviária    <br> 
+            Ocasionando o prejuizo de <span style="color: red;">R$${prejuizo}</span> por galinhas mortas<br>
+            Com o nosso sistema de monitoramento, terá uma possivel diminuição de até 20%, ou seja, <span style="color: green;">R$${diminuir}</span> do prejuizo <br><br>
+            <span style="color: green;">Gasto com o monitoramento da AviSafe: R$${comSistema}</span><br>
+            <span style="color: red;">Gasto sem o monitoramento da AviSafe: R$${prejuizo}</span>
+        `;
+    }
+</script>
