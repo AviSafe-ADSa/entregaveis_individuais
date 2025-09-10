@@ -1,93 +1,95 @@
 CREATE DATABASE AviSafeSensors;
 USE AviSafeSensors;
 DROP DATABASE AviSafeSensors;
+
+
 CREATE TABLE Sensor (
-	dtTemperatura CURRENT_TIMESTAMP,
-	tempAtual
-    
+	idSensor 		INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    modeloSensor	VARCHAR(45),
+	dtTemperatura 	TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	vlTemp 			DECIMAL(5,2) NOT NULL, 
+    vlUmi 			DECIMAL (5,2) NOT NULL
 );
-CREATE TABLE historicoAviso(
-	idAviso
-    dtAviso
-    tempRegistrada
-    tempo
-    
+CREATE TABLE historicoAvisos(
+	idAviso 		INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    risco 			DECIMAL(5,2),
+    dtAviso 		DATETIME NOT NULL,
+    tempRegistrada 	DECIMAL(5,2) NOT NULL
 );
 
 CREATE TABLE Empresa(
-nome
-cnpj
-responsavel
-endereco
+	idEmpresa 	INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	nmEmpresa 	VARCHAR(45) UNIQUE NOT NULL,
+	cnpj 		CHAR(14) UNIQUE NOT NULL,
+	responsavel	VARCHAR(45) NOT NULL UNIQUE,
+	endereco 	VARCHAR(100)
 
-)
+);
 CREATE TABLE Usuario(
-username
-senha
-permissao
-)
+	idUsuario 	INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	username 	VARCHAR(45) NOT NULL UNIQUE,
+	senha 		VARCHAR(20) NOT NULL, 
+	permissao 	INT NOT NULL
+);
 
 CREATE TABLE Permissao(
+	idPermissao 	INT PRIMARY KEY,
+	tipoPermissao 	INT
+);
 
-)
-
-CREATE TABLE Orcamento(
-	dtOrcamento
-    valorMensal
-    valorInstalacao
-    valorLogistica
-    valorManutencao
-    valorSuporte
-    qtdSensores
-    mQuadradosTotais
-)
-
-CREATE TABLE Instalacao(
-	dtInstalacao
-    valorInstalacao
-    
-)
-CREATE TABLE Manutencao(
-	dtManutencao
-    valorManutencao
-    isAvulsa
-	motivo
-)
 CREATE TABLE Pagamento(
-dtPagamento
-valorPagamento
-Pagante
+	idPagamento 	INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+	dtPagamento 	DATETIME,
+	valorPagamento 	DECIMAL(8,2),
+	pagante 		VARCHAR(45),
+	recebedor 		VARCHAR(45)
+);
 
-)
-
-CREATE TABLE Plano(
-tipoPLano
-tipoSensor
-valorPlano
-)
+CREATE TABLE PlanoCliente(
+	idPlano 			INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	nmGranja 			VARCHAR(45) NOT NULL,
+	tipoPlano 			VARCHAR(25) NOT NULL,
+	tipoSensor 			VARCHAR(45) NOT NULL,
+	qtdSensores 		INT NOT NULL,
+	dtOrcamento 		DATE NOT NULL,
+	valorMensal 		DECIMAL (8,2) NOT NULL,
+	dtInicioContrato 	DATE,
+	dtFimContrato  		DATE,
+	valorTotalContrato 	DECIMAL(8,2) NOT NULL,
+	valorInstalacao 	DECIMAL (8,2),
+	dtInstalacao 		DATE,
+	endInstalacao 		VARCHAR(100) NOT NULL,
+	valorLogistica 		DECIMAL (8,2) NOT NULL,
+	dtManutencao 		DATE,
+	valorManutencao 	DECIMAL(8,2),
+	manutencaoIsAvulsa	TINYINT,
+	motivoManutencao 	TEXT,
+	valorSuporte 		DECIMAL(8,2),
+	mQuadradosTotais 	DECIMAL(8,2) NOT NULL
+);
 
 CREATE TABLE Granja(
-idGranja
-codGranja
-nome
-responsavel
-)
+	idGranja 		INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	nmGranja 		VARCHAR(50) NOT NULL,
+	endGranja 		VARCHAR(100) NOT NULL,
+	responsavel 	VARCHAR(100) NOT NULL
+);
 
 CREATE TABLE Setor(
-idSetor
-codSetor
-tipoAve
-limiteLotacao
-tempIdeal
-isContaminado
-responsavel
-)
+	idSetor 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	codSetor 			CHAR(4) NOT NULL,
+	tipoAve 			VARCHAR(45),
+	tempIdeal 			DECIMAL(5,2) NOT NULL,
+	riscoContaminacao 	DECIMAL(5,2),
+	responsavel 		VARCHAR(100) NOT NULL
+);
 
 CREATE TABLE Ave(
-nome
-tipo
-qtd
-valor
-)
+	idAve 	INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	nmAve 	VARCHAR(45) NOT NULL,
+	tipo 	VARCHAR(45) NOT NULL,
+	qtd 	INT NOT NULL,
+	valor 	DECIMAL(8,2) NOT NULL
+);
 
 
