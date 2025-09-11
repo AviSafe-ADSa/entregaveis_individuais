@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simulador Financeiro </title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-
+     <div class="galinha">
+        
+        <h1> Simulador Financeiro - AviSafe</h1>
 
     Número total de galinhas: <br>
     <input type="number" id="input_n1">
-    <br>
-    <br>
-    Raça da galinha: <br>
-    <input type="text" id="input_n2">
     <br>
     <br>
     Preço por galinha: <br>
@@ -23,19 +23,23 @@
     Número de galinhas infectadas: <br>
     <input type="number" id="input_n4">
     <br>
-    <br>
+    <br> </p>
    
 
     <button onclick="Calcular()"> Calcular </button>
     <div id="div_mensagem"></div>
+    <br>
+    <button onclick="Resumo()"> Resumo Final </button>
+    <div id="div_resumo"></div>
+    </div>
    
 
 </body>
 </html>
 <script>
+    
     function Calcular(){
         var totalgalinhas = Number(input_n1.value)
-        var raça = (input_n2.value)
         var preçogalinha = Number(input_n3.value)
         var infectadas = Number(input_n4.value)
         var abates = (infectadas / totalgalinhas) * 100
@@ -47,104 +51,37 @@
 
 
         if (abates <=20){
-            classificação = `Situaçao de monitoramento`
+            classificação = ` <span style="color:orange;"> Atenção! </span> Sua granja esta começando a ser contaminada pela Gripe Aviaria`  
         }
-         if (abates >20 &&  abates <40  ){
-            classificação = ` Situaçao de alerta`
+         if (abates <=40){
+            classificação = ` <span style="color:red;"> Atenção! </span>  Sua granja esta contaminada`
         }
-         if (abates >40){
-            classificação = `Situaçao Critica`
+         if (abates >=60){
+            classificação = ` <span style="color:darkred;"> Alerta Critico! </span> Sua granja esta com alta contaminação`
         }
         
-        div_mensagem.innerHTML = ` Você teria perda de  <b> ${abates}% </b> de galinhas ${raça}, pois teria que abate-las. <br>  Você teria o lucro de  R$ ${lucro}, porem com as perdas de R$ ${perda}, o seu lucro seria de R$ ${lucrofinal} com a classificaçao de perda  sendo ${classificação}`
+        div_mensagem.innerHTML = ` Você teria perda de  <b> ${abates}% </b> de galinhas, pois teria que abate-las. <br>  Você teria o lucro de  R$ ${lucro}, porem com as perdas de R$ ${perda}, o seu lucro seria de R$ ${lucrofinal}  <br> ${classificação}`
 
 
     }
+    function Resumo(){
+        var totalgalinhas = Number(input_n1.value)
+        var infectadas = Number(input_n4.value)
+        var preçogalinha = Number(input_n3.value)
+        var galinhas = totalgalinhas - infectadas
+        var lucro = totalgalinhas * preçogalinha
+        var perda = infectadas * preçogalinha
+        var lucrofinal = lucro - perda
+
+
+        div_resumo.innerHTML = 
+    ` <b>Resumo Final:</b><br>
+    Total de galinhas: ${totalgalinhas}<br>
+    Infectadas: ${infectadas}<br>
+    Galinhas saudáveis: ${totalgalinhas - infectadas}<br>
+    Lucro líquido esperado: R$ ${lucro} <br>
+    Lucro Final: R$ ${lucrofinal} <br>
+    Perda total de lucro R$ ${perda}`
+    }
 </script>
-<!--
-Cálculos:
 
-Percentual de abates = (numInfectadas / numGalinhas) * 100
-
-Perda = numInfectadas * precoUnitario
-
-Receita final = receitaTotal - perda
-
-Classificação do cenário = baseado no percentual
-
-Output:
-
-
-
-
-1️⃣ Definir faixas de classificação
-
-Primeiro, você precisa decidir como medir o risco. Pode ser pelo percentual de galinhas abatidas ou pelo número absoluto de galinhas infectadas:
-
-Exemplo usando percentual:
-
-Leve: até 10% do lote abatido
-
-Moderado: 11% a 30% do lote abatido
-
-Grave: acima de 30% do lote abatido
-
-Exemplo usando número absoluto:
-
-Leve: até 50 galinhas abatidas
-
-Moderado: 51 a 200 galinhas abatidas
-
-Grave: acima de 200 galinhas abatidas
-
-2️⃣ Como aplicar na lógica
-
-Depois de calcular a perda e o número de galinhas abatidas, você compara com essas faixas e define o cenário:
-
-Se estiver na faixa “leve” → mostra “Situação Leve”
-
-Se estiver na faixa “moderado” → mostra “Situação Moderada”
-
-Se estiver na faixa “grave” → mostra “Situação Grave”
-
-Isso dá um feedback visual e imediato para o produtor.
-
-3️⃣ Melhorias possíveis
-
-Associar cores para cada cenário: verde (leve), amarelo (moderado), vermelho (grave)
-
-Mostrar mensagens de alerta: “Alerta! Alto risco de surto!”
-
-Permitir que o produtor simule diferentes porcentagens de infecção e veja como o cenário muda
-
-4️⃣ Exemplo de aplicação
-
-Você teria inputs como:
-
-Número total de galinhas
-
-Preço por galinha
-
-Número de galinhas infectadas
-
-Cálculos:
-
-Percentual de abates = (numInfectadas / numGalinhas) * 100
-
-Perda = numInfectadas * precoUnitario
-
-Receita final = receitaTotal - perda
-
-Classificação do cenário = baseado no percentual
-
-Output:
-
-Receita total
-
-Perda
-
-Receita final
-
-Percentual perdido
-
-Situação do lote: leve, moderado ou grave -->
