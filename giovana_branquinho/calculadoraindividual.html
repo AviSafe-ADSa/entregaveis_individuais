@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Simples - Avisafe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1><b style="color: red;">Calculadora Financeira Temperatura de Proliferação - Avisafe</b></h1><br><br>
+
+  <label for="input_qtdGalinhas">Insira a quantidade de Galinhas:</label><br><br>
+  <input id="input_qtdGalinhas" type="number"><br><br>
+
+  <label for="input_temp">Insira a temperatura:</label><br><br>
+  <input id="input_temp" type="number"><br><br>
+
+  <label for="input_precoGalinha">Insira o preço por Galinha (R$):</label><br><br>
+  <input id="input_precoGalinha" type="number"><br><br>
+
+  <label for="input_custoGalinha">Insira o custo por Galinha (R$):</label><br><br>
+  <input id="input_custoGalinha" type="number"><br><br>
+
+  <button onclick="calcular()">Calcular</button><br><br>
+  <div id="div_resultado"></div>
+
+  <script>
+    function calcular() {
+      var galinhas = Number(input_qtdGalinhas.value);
+      var temperatura = Number(input_temp.value);
+      var preco = Number(input_precoGalinha.value);
+      var custo = Number(input_custoGalinha.value);
+
+      var receita = galinhas * preco;
+      var investimento = galinhas * custo;
+
+      var risco;
+      if (temperatura < 20) {
+        risco = "alta";
+      } else {
+        risco = "baixa";
+      }
+
+      div_resultado.innerHTML = ` Uma granja onde a temperatura está
+     ${temperatura}°C, a chance de proliferação está ${risco}, onde a receita total
+     fica R$ ${receita} e o investimento total é: R$ ${investimento}.`;
+    }
+  </script>
+</body>
+</html>
