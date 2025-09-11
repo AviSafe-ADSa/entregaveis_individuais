@@ -47,13 +47,13 @@ CREATE TABLE Empresa(
 );
 
 INSERT INTO Empresa (nmEmpresa, cnpj, responsavel, endereco) 
-VALUES ('FRANGO ASSADO', '12345678000199', 'Carlos Souza', 'Rua A, 100');
+VALUES ('FRANGO ASSADO', '56309671000193', 'Igor felix', 'Rua haddock lobo 595, 100');
 
 INSERT INTO Empresa (nmEmpresa, cnpj, responsavel, endereco) 
-VALUES ('SEARA', '98765432000111', 'Ana Pereira', 'Av. B, 200');
+VALUES ('SEARA', '42570926000162', 'Gabriel Fontes', 'Av. Paulista, 200');
 
 INSERT INTO Empresa (nmEmpresa, cnpj, responsavel, endereco) 
-VALUES ('PERDIGAO', '11122333000144', 'José Silva', 'Rua C, 300');
+VALUES ('PERDIGAO', '20048826000138', 'Giovana', 'Av. Faria Lima, 300');
 
 CREATE TABLE Usuario(
 	idUsuario 	INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -96,13 +96,13 @@ CREATE TABLE Pagamento(
 );
 
 INSERT INTO Pagamento (dtPagamento, valorPagamento, pagante, recebedor, statusPagamento, codNF) 
-VALUES ('2025-09-10 15:00:00', 100.00, 'Cliente GRANJA GALINHOTAS', 'AviSafe Ltda', 'Pago', 'NF12345');
+VALUES ('2025-09-10 15:00:00', 100.00, 'Cliente GRANJA GALINHOTAS', 'AviSafe Ltda', 'Pago', '35190812345678000198550010000012345678901234');
 
 INSERT INTO Pagamento (dtPagamento, valorPagamento, pagante, recebedor, statusPagamento, codNF) 
-VALUES ('2025-09-09 17:00:00', 200.00, 'Cliente2', 'GRANJA TOP', 'Pendente', 'NF12346');
+VALUES ('2025-09-09 17:00:00', 200.00, 'Cliente2', 'GRANJA TOP', 'Pendente', '35190912345678000198550010000098765432100987');
 
 INSERT INTO Pagamento (dtPagamento, valorPagamento, pagante, recebedor, statusPagamento, codNF) 
-VALUES ('2025-09-08 12:00:00', 300.00, 'Cliente3', 'GRANJA TOPFRANGO', 'Cancelado', 'NF12347');
+VALUES ('2025-09-08 12:00:00', 300.00, 'Cliente3', 'GRANJA TOPFRANGO', 'Cancelado', '35190712345678000198550010000045678901234567');
 	
 CREATE TABLE PlanoCliente(
 	idPlano 			INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -133,19 +133,19 @@ INSERT INTO PlanoCliente (nmGranja, tipoPlano, tipoSensor, statusPlano, qtdSenso
  dtFimContrato, valorTotalContrato, valorInstalacao, dtInstalacao, endInstalacao, valorLogistica, dtManutencao, valorManutencao,
  manutencaoIsAvulsa, motivoManutencao, valorSuporte, mQuadradosTotais) 
 VALUES ('Granja TOPFRANGO', 'Mensal', 'Modelo DHT11', 'Pendente', 10, '2025-09-01', 150.00, '2025-09-01', '2026-09-01', 1800.00, 500.00, '2025-09-15',
- 'Rua A', 300.00, '2025-12-01', 100.00, 1, 'Manutenção de rotina', 50.00, 1000.00);
+ 'AV PAULISTA', 300.00, '2025-12-01', 100.00, 1, 'Manutenção de rotina', 50.00, 1000.00);
 
 INSERT INTO PlanoCliente (nmGranja, tipoPlano, tipoSensor, statusPlano, qtdSensores, dtOrcamento, valorMensal, dtInicioContrato,
  dtFimContrato, valorTotalContrato, valorInstalacao, dtInstalacao, endInstalacao, valorLogistica, dtManutencao, valorManutencao,
  manutencaoIsAvulsa, motivoManutencao, valorSuporte, mQuadradosTotais) 
 VALUES ('Granja TOP', 'Anual', 'Modelo DHT11', 'Pago', 20, '2025-08-15', 250.00, '2025-08-20', '2026-08-20', 3000.00, 600.00, '2025-08-25',
- 'Av. B', 400.00, '2025-11-01', 150.00, 0, 'Sem manutenção', 60.00, 2000.00);
+ 'Av FARIA LIMA', 400.00, '2025-11-01', 150.00, 0, 'Sem manutenção', 60.00, 2000.00);
 
 INSERT INTO PlanoCliente (nmGranja, tipoPlano, tipoSensor, statusPlano, qtdSensores, dtOrcamento, valorMensal, dtInicioContrato,
  dtFimContrato, valorTotalContrato, valorInstalacao, dtInstalacao, endInstalacao, valorLogistica, dtManutencao, valorManutencao,
  manutencaoIsAvulsa, motivoManutencao, valorSuporte, mQuadradosTotais) 
 VALUES ('Granja GALINHOTAS', 'Mensal', 'Modelo LM35', 'Vencido', 5, '2025-07-01', 120.00, '2025-07-01', '2025-12-31', 1440.00, 400.00, '2025-07-10',
- 'Rua C', 250.00, '2025-10-01', 80.00, 1, 'Manutenção emergencial', 40.00, 800.00);
+ 'AV TABOÃO', 250.00, '2025-10-01', 80.00, 1, 'Manutenção emergencial', 40.00, 800.00);
 
 CREATE TABLE Granja(
 	idGranja 		INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -154,13 +154,13 @@ CREATE TABLE Granja(
 	responsavel 	VARCHAR(100) NOT NULL
 );
 INSERT INTO Granja (nmGranja, endGranja, responsavel) 
-VALUES ('Granja TOP', 'Rua A, 100', 'Igor felix');
+VALUES ('Granja TOP', 'AV TABOAO, 100', 'Igor felix');
 
 INSERT INTO Granja (nmGranja, endGranja, responsavel) 
-VALUES ('Granja GALINHOTAS', 'Av. B, 200', 'Gabriel Fontes');
+VALUES ('Granja GALINHOTAS', 'AV FARIA LIMA, 200', 'Gabriel Fontes');
 
 INSERT INTO Granja (nmGranja, endGranja, responsavel) 
-VALUES ('Granja TOPFRANGO', 'Rua C, 300', 'José Silva');
+VALUES ('Granja TOPFRANGO', 'AV PAULISTA, 300', 'Gustavo');
 
 CREATE TABLE Setor(
 	idSetor 			INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -228,5 +228,73 @@ ADD CONSTRAINT chkTipoPlano CHECK (tipoPlano IN ('Mensal', 'Anual'));
 
 ALTER TABLE Setor
 ADD CONSTRAINT chkTipoAve CHECK (tipoAve IN ('Frango', 'Peru', 'Codorna', 'Galinha'));
+
+SELECT 
+    e.nmEmpresa, 
+    e.cnpj 
+FROM Empresa e
+WHERE e.nmEmpresa IN ('FRANGO ASSADO', 'SEARA')
+ORDER BY e.cnpj;
+
+SELECT 
+    e.nmEmpresa, 
+    e.cnpj 
+FROM Empresa e
+WHERE e.nmEmpresa IN ('FRANGO ASSADO', 'SEARA')
+ORDER BY e.cnpj;
+
+SELECT 
+    p.pagante, 
+    p.statusPagamento,
+    CASE 
+        WHEN p.statusPagamento = 'Pago' THEN 'Pagamento realizado'
+        WHEN p.statusPagamento = 'Pendente' THEN 'Pagamento pendente'
+        WHEN p.statusPagamento = 'Cancelado' THEN 'Pagamento cancelado'
+        ELSE 'Status desconhecido'
+    END AS Status_Descricao
+FROM Pagamento p;
+
+SELECT 
+    g.nmGranja, 
+    g.endGranja 
+FROM Granja g
+WHERE g.nmGranja LIKE 'Granja TOP%';
+
+SELECT 
+    s.codSetor, 
+    s.tipoAve, 
+    s.statusSetor
+FROM Setor s
+WHERE s.tipoAve IN ('Frango', 'Galinha') 
+  AND s.statusSetor = 'Em Operação';
+
+SELECT 
+    p.nmGranja, 
+    p.dtInicioContrato,
+    CASE 
+        WHEN p.dtFimContrato > CURRENT_DATE THEN 'Plano ativo'
+        WHEN p.dtFimContrato <= CURRENT_DATE THEN 'Plano expirado'
+        ELSE 'Data inválida'
+    END AS Status_Planos
+FROM PlanoCliente p
+WHERE p.statusPlano = 'Pago'
+ORDER BY p.dtInicioContrato DESC;
+
+SELECT 
+    CONCAT(s.nmAve, ' - ', s.tipo) AS 'TIPO DE AVE',
+    s.qtd, 
+    s.valor
+FROM Ave s
+WHERE s.tipo IN ('Frango de Corte', 'Galinha de Ovos');
+
+SELECT 
+    ha.descAviso,
+    ha.risco,
+    ha.dtAviso
+FROM historicoAvisos ha
+WHERE 
+ha.risco IN (5.5, 7.0)
+ORDER BY ha.dtAviso DESC;
+
 
 
