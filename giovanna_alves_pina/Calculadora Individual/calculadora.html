@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador</title>
+
+
+<link rel="stylesheet" href="style.css">
+
+
+
+</head>
+<body>
+
+
+    <span><p>Simulador Financeiro:</p></span> <br>
+
+    simulação de acordo com a taxa de mortalidade da gripe aviária em 80% <br>
+
+ <br>Quantidade de galinhas: <br>
+<input type="number" id="input_quantidade"> <br><br>
+
+Preço da galinha (Valor investido): <br>
+<input type="number" id="input_investimento"> <br><br>
+
+Valor atual da galinha: <br>
+<input type="number" id="input_valor"> <br><br>
+
+
+<button onclick="calcular()">Calcular</button> <br><br>
+
+
+<div id="div_mensagem"></div>
+  
+
+
+
+</body>
+</html>
+
+
+<script>
+
+function calcular() {
+var quantidade = input_quantidade.value 
+var investimento = input_investimento.value
+var valor = input_valor.value 
+var perda = quantidade * 0.8
+var perdareceita = perda * investimento 
+var custoreposicao = perda * valor 
+
+
+div_mensagem.innerHTML = `Valor estimado de perda de ${perda} galinhas <br>
+                         Perda de receita estimado em R${perdareceita} <br>
+                         Gasto com a reposição das aves: ${custoreposicao} <br>`
+
+
+
+
+
+
+
+
+}
+
+
+
+</script>
