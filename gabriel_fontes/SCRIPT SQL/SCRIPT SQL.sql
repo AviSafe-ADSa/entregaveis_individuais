@@ -1,6 +1,6 @@
 CREATE DATABASE AviSafeSensors;
 USE AviSafeSensors;
-DROP DATABASE AviSafeSensors;
+-- DROP DATABASE AviSafeSensors;
 
 
 CREATE TABLE Sensor (
@@ -213,6 +213,17 @@ VALUES ('Poedeira', 'Galinha', 150, 5.00);
 INSERT INTO Ave (nmAve, tipo, qtd, valor)
 VALUES ('Galinha', 'Frango de Corte', 600, 14.50);
 
+ALTER TABLE Pagamento
+RENAME COLUMN codNF TO codigoNF;
+
+ALTER TABLE Empresa
+MODIFY COLUMN nmEmpresa VARCHAR(100);
+
+ALTER TABLE Empresa 
+ADD COLUMN nmRede VARCHAR(100);
+
+ALTER TABLE Empresa 
+DROP COLUMN nmRede;
 
 ALTER TABLE Sensor
 ADD CONSTRAINT chkTempUmi CHECK (vlTemp >= -30 AND vlTemp <= 50 AND vlUmi >= 0 AND vlUmi <= 100);
